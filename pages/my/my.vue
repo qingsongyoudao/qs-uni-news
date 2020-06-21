@@ -8,6 +8,7 @@
 				<u-icon name="chat" size="38" :custom-style="{ padding: '16rpx' }" @click="tip"></u-icon>
 			</view>
 		</qs-navbar>
+		
 		<view class="my-box">
 			<!-- 用户 -->
 			<view class="user-box">
@@ -29,7 +30,7 @@
 					<view><u-icon name="arrow-right" color="#969799" size="28"></u-icon></view>
 				</view>
 			</view>
-
+		
 			<!-- 跟踪 -->
 			<view class="trace-box">
 				<u-grid :col="4" :border="false">
@@ -38,9 +39,9 @@
 					</u-grid-item>
 				</u-grid>
 			</view>
-
+		
 			<u-gap height="20"></u-gap>
-
+		
 			<!-- 其它 -->
 			<view class="other-panel-box">
 				<u-cell-group :border="false">
@@ -49,9 +50,10 @@
 					</view>
 				</u-cell-group>
 			</view>
-
+		
 			<u-gap height="60"></u-gap>
 		</view>
+		
 	</qs-page>
 </template>
 

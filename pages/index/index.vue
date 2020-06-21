@@ -8,25 +8,47 @@
 			</view>
 		</qs-navbar>
 		
-		<u-gap height="60"></u-gap>
+		<tabs v-model="tabs.current" :tabs="tabs.items"></tabs>
+		<swiper :style="{ height: height }" :current="tabs.current" @change="swiperChange">
+			<swiper-item v-for="(tab, i) in tabs.items" :key="i">
+				<mescroll-item :i="i" :index="tabs.current" :tabs="tabs.items"></mescroll-item>
+			</swiper-item>
+		</swiper>
 	</qs-page>
 </template>
 
 <script>
+import Tabs from './components/tabs.vue';
+import MescrollItem from './components/mescroll-item.vue';
+
 export default {
+	components: {
+		MescrollItem,
+		Tabs
+	},
 	data() {
 		return {
-			title: 'Hello'
+			height: '400px', // 需要固定swiper的高度
+			tabs: {
+				items: ['关注', '最新', '热榜', '精读', '直播', '手机', '电脑', '无人机'],
+				current: 0
+			}
 		};
 	},
 	methods: {
+		// 打开页面
 		openPage(path) {
 			this.$u.route({
 				url: '/pages/' + path
 			});
 		},
+		// 提示
 		tip() {
 			return this.$u.toast('暂未开通');
+		},
+		// 轮播
+		swiperChange(e) {
+			this.tabs.current = e.detail.current;
 		}
 	}
 };
