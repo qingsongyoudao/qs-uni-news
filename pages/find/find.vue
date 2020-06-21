@@ -16,12 +16,6 @@
 					<u-cell-item :title="item1.title" :value="item1.value" @click="tip" v-for="(item1, index1) in item.cells" :key="index1" :border-bottom="false"></u-cell-item>
 				</view>
 			</u-cell-group>
-			
-			<u-cell-group :border="false">
-				<view class="list-main">
-					<u-cell-item title="mescroll-body" value="演示" @click="openPage('mescroll-body/mescroll-body')" :border-bottom="false"></u-cell-item>
-				</view>
-			</u-cell-group>
 		</view>
 
 		<u-gap height="60"></u-gap>
