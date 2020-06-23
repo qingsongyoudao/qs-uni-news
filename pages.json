@@ -38,6 +38,21 @@
 		"style": {
 			"navigationStyle": "custom"
 		}
+	}, {
+		"path": "pages/demo/status-nav-bar",
+		"style": {
+			"navigationStyle": "custom"
+		}
+	}, {
+		"path": "pages/demo/header-title",
+		"style": {
+			"navigationStyle": "custom"
+		}
+	}, {
+		"path": "pages/demo/header-nav",
+		"style": {
+			"navigationStyle": "custom"
+		}
 	}],
 	"globalStyle": {
 		"pageOrientation": "portrait",

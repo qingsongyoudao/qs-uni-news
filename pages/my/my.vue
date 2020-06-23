@@ -1,14 +1,23 @@
 <template>
-	<qs-page>
-		<qs-navbar>
-			<view class="u-flex u-m-l-22">
-				<u-icon name="setting" size="38" :custom-style="{ padding: '16rpx' }" @click="tip"></u-icon>
-			</view>
-			<view class="u-flex u-m-r-22">
-				<u-icon name="chat" size="38" :custom-style="{ padding: '16rpx' }" @click="tip"></u-icon>
-			</view>
-		</qs-navbar>
-		
+	<qs-page :header="true">
+		<!-- 页面头部 -->
+		<block slot="header">
+			<status-bar></status-bar>
+			<nav-bar>
+				<view class="u-flex u-m-l-10">
+					<u-icon name="setting" size="38" :custom-style="{ padding: '20rpx' }" @click="tip"></u-icon>
+				</view>
+				<view class="u-flex u-m-r-10">
+					<u-icon name="chat" size="38" :custom-style="{ padding: '20rpx' }" @click="tip"></u-icon>
+				</view>
+			</nav-bar>
+		</block>
+		<block slot="header-placeholder">
+			<status-bar></status-bar>
+			<nav-bar></nav-bar>
+		</block>
+	
+		<!-- 页面主体 -->
 		<view class="my-box">
 			<!-- 用户 -->
 			<view class="user-box">

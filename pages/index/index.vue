@@ -1,17 +1,32 @@
 <template>
-	<page-nav-tab-bar v-model="tabs.current" :tabs="tabs.items">
-		<block slot="navbar">
-			<view class="u-flex u-m-l-20"><u-icon name="search" size="38" :custom-style="{ padding: '20rpx' }" @click="tip"></u-icon></view>
-			<view class="u-flex u-m-r-20">
-				<u-icon name="chat" size="38" :custom-style="{ padding: '20rpx' }" @click="tip"></u-icon>
-				<u-icon name="scan" size="38" :custom-style="{ padding: '20rpx' }" @click="tip"></u-icon>
-			</view>
+	<qs-page :header="true">
+		<!-- 页面头部 -->
+		<block slot="header">
+			<status-bar></status-bar>
+			<nav-bar>
+				<view class="u-flex u-m-l-10">
+					<u-icon name="search" size="38" :custom-style="{ padding: '20rpx' }" @click="tip"></u-icon>
+				</view>
+				<view class="u-flex u-m-r-10">
+					<u-icon name="chat" size="38" :custom-style="{ padding: '20rpx' }" @click="tip"></u-icon>
+					<u-icon name="scan" size="38" :custom-style="{ padding: '20rpx' }" @click="tip"></u-icon>
+				</view>
+			</nav-bar>
+			<u-tabs ref="tabs" :list="tabs.items" :current="tabs.current" @change="tabsChange" height="80" active-color="#D81E06"></u-tabs>
 		</block>
-
+		<block slot="header-placeholder">
+			<status-bar></status-bar>
+			<nav-bar></nav-bar>
+			<u-gap height="80"></u-gap>
+		</block>
+	
+		<!-- 页面主体 -->
 		<swiper :style="{ height: height }" :current="tabs.current" @change="swiperChange">
-			<swiper-item v-for="(tab, i) in tabs.items" :key="i"><mescroll-item :i="i" :index="tabs.current" :tabs="tabs.items"></mescroll-item></swiper-item>
+			<swiper-item v-for="(tab, i) in tabs.items" :key="i">
+				<mescroll-item :i="i" :index="tabs.current" :tabs="tabs.items"></mescroll-item>
+			</swiper-item>
 		</swiper>
-	</page-nav-tab-bar>
+	</qs-page>
 </template>
 
 <script>
@@ -65,6 +80,10 @@ export default {
 		// 提示
 		tip() {
 			return this.$u.toast('暂未开通');
+		},
+		// 标签栏
+		tabsChange(i) {
+			this.tabs.current = i;
 		},
 		// 轮播
 		swiperChange(e) {

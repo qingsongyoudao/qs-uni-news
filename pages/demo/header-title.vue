@@ -1,19 +1,19 @@
 <template>
-	<qs-page :header="true" :footer="true">
+	<qs-page :header="true">
 		<!-- 页面头部 -->
 		<block slot="header">
-			<view style="height: 64px;">header</view>
+			<status-bar></status-bar>
+			<nav-bar>
+				<view class="u-m-l-30 u-font-xl">标题</view>
+				<view class="u-flex u-m-r-10">
+					<u-icon name="search" size="38" :custom-style="{ padding: '20rpx' }" @click="tip"></u-icon>
+					<u-icon name="scan" size="38" :custom-style="{ padding: '20rpx' }" @click="tip"></u-icon>
+				</view>
+			</nav-bar>
 		</block>
 		<block slot="header-placeholder">
-			<view style="height: 64px;"></view>
-		</block>
-		
-		<!-- 页面底部 -->
-		<block slot="footer">
-			<view style="height: 44px; background-color: #DCDFE6;">footer</view>
-		</block>
-		<block slot="footer-placeholder">
-			<view style="height: 44px;"></view>
+			<status-bar></status-bar>
+			<nav-bar></nav-bar>
 		</block>
 
 		<!-- 页面主体 -->

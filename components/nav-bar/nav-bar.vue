@@ -1,6 +1,12 @@
 <template>
 	<view class="qs-navbar">
-		<view class="qs-navbar-inner" :style="[navbarInnerStyle]"><slot /></view>
+		<view class="qs-navbar-inner" :style="[navbarInnerStyle]">
+			<slot>
+				<view><slot name="left"></slot></view>
+				<view><slot name="center"></slot></view>
+				<view><slot name="right"></slot></view>
+			</slot>
+		</view>
 	</view>
 </template>
 

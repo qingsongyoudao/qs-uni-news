@@ -1,21 +1,6 @@
 <template>
 	<qs-page>
-		<view style="background-color: #FF0000;">
-			<status-bar></status-bar>
-		</view>
-		<view style="background-color: #333333;">
-			<nav-bar>
-				<view style="background-color: #007AFF;">left</view>
-				<view style="background-color: #2979FF;">right</view>
-			</nav-bar>
-		</view>
-		<view style="background-color: #666666;">
-			<nav-bar>
-				<view style="background-color: #007AFF;">left</view>
-				<view style="background-color: #2B85E4;">middle</view>
-				<view style="background-color: #2979FF;">right</view>
-			</nav-bar>
-		</view>
+		
 	</qs-page>
 </template>
 
@@ -23,8 +8,22 @@
 export default {
 	data() {
 		return {};
+	},
+	methods: {
+		// 打开页面
+		openPage(path) {
+			this.$u.route({
+				url: '/pages/' + path
+			});
+		},
+		// 提示
+		tip() {
+			return this.$u.toast('暂未开通');
+		}
 	}
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+</style>
