@@ -1,5 +1,5 @@
 <template>
-	<mescroll-uni ref="mescrollRef" @init="mescrollInit" height="100%" top="74" :down="downOption" @down="downCallback" :up="upOption" @up="upCallback" @emptyclick="emptyClick">
+	<mescroll-uni ref="mescrollRef" @init="mescrollInit" height="100%" top="2" :down="downOption" @down="downCallback" :up="upOption" @up="upCallback" @emptyclick="emptyClick">
 		<list :list="dataList"></list>
 	</mescroll-uni>
 </template>

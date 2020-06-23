@@ -1,35 +1,31 @@
 <template>
-	<qs-page>
-		<qs-navbar>
-			<view class="u-flex u-m-l-22"><u-icon name="search" size="38" :custom-style="{ padding: '16rpx' }" @click="tip"></u-icon></view>
-			<view class="u-flex u-m-r-22">
-				<u-icon name="chat" size="38" :custom-style="{ padding: '16rpx' }" @click="tip"></u-icon>
-				<u-icon name="scan" size="38" :custom-style="{ padding: '16rpx' }" @click="tip"></u-icon>
+	<page-nav-tab-bar v-model="tabs.current" :tabs="tabs.items">
+		<block slot="navbar">
+			<view class="u-flex u-m-l-20"><u-icon name="search" size="38" :custom-style="{ padding: '20rpx' }" @click="tip"></u-icon></view>
+			<view class="u-flex u-m-r-20">
+				<u-icon name="chat" size="38" :custom-style="{ padding: '20rpx' }" @click="tip"></u-icon>
+				<u-icon name="scan" size="38" :custom-style="{ padding: '20rpx' }" @click="tip"></u-icon>
 			</view>
-		</qs-navbar>
+		</block>
 
-		<tabs v-model="tabs.current" :tabs="tabs.items1"></tabs>
 		<swiper :style="{ height: height }" :current="tabs.current" @change="swiperChange">
 			<swiper-item v-for="(tab, i) in tabs.items" :key="i"><mescroll-item :i="i" :index="tabs.current" :tabs="tabs.items"></mescroll-item></swiper-item>
 		</swiper>
-	</qs-page>
+	</page-nav-tab-bar>
 </template>
 
 <script>
-import Tabs from './components/tabs.vue';
 import MescrollItem from './components/mescroll-item.vue';
 
 export default {
 	components: {
-		MescrollItem,
-		Tabs
+		MescrollItem
 	},
 	data() {
 		return {
 			height: '400px', // 需要固定swiper的高度
 			tabs: {
-				items: ['关注', '最新', '热榜', '精读', '直播', '手机', '电脑', '无人机'],
-				items1: [
+				items: [
 					{
 						name: '关注'
 					},
