@@ -3,7 +3,7 @@
 		"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
 	},
 	"pages": [{
-		"path": "pages/index/index",
+		"path": "pages/news/news",
 		"style": {
 			"navigationStyle": "custom"
 		}
@@ -14,16 +14,6 @@
 		}
 	}, {
 		"path": "pages/my/my",
-		"style": {
-			"navigationStyle": "custom"
-		}
-	}, {
-		"path": "pages/news/news",
-		"style": {
-			"navigationStyle": "custom"
-		}
-	}, {
-		"path": "pages/mall/mall",
 		"style": {
 			"navigationStyle": "custom"
 		}
@@ -67,20 +57,10 @@
 		"backgroundColor": "#FFFFFF",
 		"borderStyle": "white",
 		"list": [{
-			"pagePath": "pages/index/index",
+			"pagePath": "pages/news/news",
 			"iconPath": "static/tabbar/tabbar-home-gray.png",
 			"selectedIconPath": "static/tabbar/tabbar-home-red.png",
-			"text": "首页"
-		}, {
-			"pagePath": "pages/news/news",
-			"iconPath": "static/tabbar/tabbar-find-gray.png",
-			"selectedIconPath": "static/tabbar/tabbar-find-red.png",
 			"text": "资讯"
-		}, {
-			"pagePath": "pages/mall/mall",
-			"iconPath": "static/tabbar/tabbar-find-gray.png",
-			"selectedIconPath": "static/tabbar/tabbar-find-red.png",
-			"text": "产品"
 		}, {
 			"pagePath": "pages/find/find",
 			"iconPath": "static/tabbar/tabbar-find-gray.png",

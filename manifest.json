@@ -115,6 +115,9 @@
             "base" : "/h5/",
             "mode" : "history"
         },
-        "template" : "template.h5.html"
+        "template" : "template.h5.html",
+        "devServer" : {
+            "https" : false
+        }
     }
 }
