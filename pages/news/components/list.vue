@@ -41,15 +41,12 @@ export default {
 
 	.list-item {
 		padding: 30rpx 30rpx;
-		border-bottom: 1upx solid #eee;
+		border-bottom: 1rpx solid $uni-border-color-light;
 
 		.list-item-side {
 			width: 160rpx;
 			height: 120rpx;
 			margin-right: 20rpx;
-		}
-
-		.list-item-main {
 		}
 	}
 

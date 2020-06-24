@@ -153,7 +153,7 @@ export default {
 
 		.panel-header {
 			padding: 30rpx 32rpx 20rpx 32rpx;
-			border-bottom: 1rpx solid $qs-border-color-light;
+			border-bottom: 1rpx solid $uni-border-color-light;
 		}
 
 		.panel-main {
