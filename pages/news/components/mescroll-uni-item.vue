@@ -25,8 +25,7 @@ export default {
 				auto: false
 			},
 			upOption: {
-				auto: true,
-				textNoMore: '-- 没有更多了 --'
+				auto: true
 			},
 			dataList: []
 		};
@@ -46,8 +45,6 @@ export default {
 					// 联网失败的回调, 隐藏下拉刷新的状态
 					this.mescroll.endErr();
 				});
-			// 下拉刷新的回调, 默认重置上拉加载列表为第一页 (自动执行 page.num=1, 再触发upCallback方法 )
-			// this.mescroll.resetUpScroll();
 		},
 		/* 上拉加载的回调 */
 		upCallback(page) {
@@ -56,9 +53,6 @@ export default {
 				.then(curPageData => {
 					// 联网成功的回调，隐藏下拉刷新和上拉加载的状态
 					this.mescroll.endSuccess(curPageData.length);
-
-					// 设置列表数据
-					if (page.num == 1) this.dataList = []; // 如果是第一页需手动制空列表
 
 					// 追加新数据
 					this.dataList = this.dataList.concat(curPageData);

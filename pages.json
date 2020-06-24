@@ -5,7 +5,10 @@
 	"pages": [{
 		"path": "pages/news/news",
 		"style": {
-			"navigationStyle": "custom"
+			"navigationStyle": "custom",
+			"app-plus": {
+				"bounce": "none" // 取消iOS回弹, 避免和下拉刷新冲突 (小程序无法取消)
+			}
 		}
 	}, {
 		"path": "pages/find/find",
