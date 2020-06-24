@@ -21,28 +21,7 @@
 			"navigationStyle": "custom"
 		}
 	}, {
-		"path": "pages/demo/demo",
-		"style": {
-			"navigationBarTitleText": "演示",
-			"navigationStyle": "custom"
-		}
-	}, {
-		"path": "pages/demo/page",
-		"style": {
-			"navigationStyle": "custom"
-		}
-	}, {
-		"path": "pages/demo/status-nav-bar",
-		"style": {
-			"navigationStyle": "custom"
-		}
-	}, {
-		"path": "pages/demo/header-title",
-		"style": {
-			"navigationStyle": "custom"
-		}
-	}, {
-		"path": "pages/demo/header-nav",
+		"path": "pages/news/detail",
 		"style": {
 			"navigationStyle": "custom"
 		}
