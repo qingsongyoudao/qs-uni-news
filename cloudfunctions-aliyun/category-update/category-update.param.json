@@ -1,0 +1,18 @@
+// 本文件中的json内容将在云函数【上传并运行】时作为参数传给云函数。
+{
+	"id": "5ef648d2985034004c3001c9",	"parentId": "",
+	"name": "无人机",
+	"code": "",
+	"icon": "",
+	"imageUrl": "",
+	"description": "",
+	"status": "normal",
+	"sort": 0,
+	"level": 1,
+	"metaTitle": "",
+	"metaKeywords": "",
+	"metaDescription": "",
+	"path": "",
+	"rewriteName": "",
+	"theme": ""
+}
