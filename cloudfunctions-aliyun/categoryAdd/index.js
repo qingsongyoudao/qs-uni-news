@@ -2,6 +2,6 @@
 const db = uniCloud.database()
 exports.main = async (event, context) => {
 	const collection = db.collection('category')
-	const res = await collection.add(event)
+	var res = await collection.add(event)
 	return res
 };
