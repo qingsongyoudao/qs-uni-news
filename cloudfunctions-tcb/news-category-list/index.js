@@ -6,7 +6,7 @@ exports.main = async (event, context) => {
 	console.log('event : ' + event)
 
 	// 数据表
-	const collection = db.collection('category')
+	const collection = db.collection('news-category')
 
 	// 对象
 	let model = event

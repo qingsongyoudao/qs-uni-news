@@ -5,7 +5,7 @@ exports.main = async (event, context) => {
 	console.log('event : ' + event)
 
 	// 数据表
-	const collection = db.collection('category')
+	const collection = db.collection('news-category')
 
 	// 对象
 	let model = event
@@ -14,8 +14,8 @@ exports.main = async (event, context) => {
 	// 数据
 	let data = {}
 
-	res = await collection.doc(model.id).remove()
-	data = res
+	res = await collection.doc(model.id).get()
+	data = res.data[0]
 	
 	// 返回数据给客户端
 	return {

@@ -4,6 +4,7 @@
 	"keyword": "",
 	"categoryId": "",
 	"status": "",
+	"type": 0,
 	"page": {
 		"index": 1,
 		"size": 10,

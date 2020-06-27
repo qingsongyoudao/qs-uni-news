@@ -4,8 +4,26 @@
 
 {
 	// 类别表
-	"category": {
+	"news-category": {
 		"data": [ // 数据
+			{
+				"_id": "fcca363a5ef715df0005cd13300816c6",
+				"parentId": "",
+				"name": "手机",
+				"code": "",
+				"icon": "",
+				"imageUrl": "",
+				"description": "",
+				"status": "normal",
+				"sort": "0",
+				"level": "1",
+				"metaTitle": "",
+				"metaKeywords": "",
+				"metaDescription": "",
+				"path": "",
+				"rewriteName": "",
+				"theme": ""
+			},
 			{
 				"_id": "5ef369613e8e0b004da1709e",
 				"parentId": "",
@@ -77,7 +95,7 @@
 		"data": [ // 数据
 			{
 				"_id": "5ef36a960a0d75004c02405c",
-				"categoryId": "",
+				"categoryId": "fcca363a5ef715df0005cd13300816c6",
 				"title": "【视频】五分钟带你体验iOS 14四大新功能，你想看的都在这",
 				"subTitle": "",
 				"imageUrl": "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-qs-news/6f34cca0-b633-11ea-a30b-e311646dfaf2.jpg",
@@ -103,7 +121,7 @@
 			},
 			{
 				"_id": "5ef36abcbb3e5e004c50dd6d",
-				"categoryId": "",
+				"categoryId": "fcca363a5ef715df0005cd13300816c6",
 				"title": "【视频】9分钟完全回顾苹果WWDC2020精华，目不暇接的几十个痛点！",
 				"subTitle": "",
 				"imageUrl": "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-qs-news/6f2bf300-b633-11ea-b43d-2358b31b6ce6.jpg",
@@ -129,7 +147,7 @@
 			},
 			{
 				"_id": "5ef36ad2df55cc004c5d8ebc",
-				"categoryId": "",
+				"categoryId": "fcca363a5ef715df0005cd13300816c6",
 				"title": "iOS 14发布！一键升级，都是我想要的功能",
 				"subTitle": "",
 				"imageUrl": "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-qs-news/6f26e9f0-b633-11ea-b43d-2358b31b6ce6.jpg",
@@ -155,7 +173,7 @@
 			},
 			{
 				"_id": "5ef36ae143f165004c7132b5",
-				"categoryId": "",
+				"categoryId": "fcca363a5ef715df0005cd13300816c6",
 				"title": "苹果WWDC 2020官方全程回放视频",
 				"subTitle": "",
 				"imageUrl": "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-qs-news/6f1a8de0-b633-11ea-8a36-ebb87efcf8c0.jpg",
@@ -181,7 +199,7 @@
 			},
 			{
 				"_id": "5ef36af943f165004c7132b8",
-				"categoryId": "",
+				"categoryId": "fcca363a5ef715df0005cd13300816c6",
 				"title": "苹果 iOS 14/iPadOS 14 开发者预览/公测版 Beta 开始推送",
 				"subTitle": "",
 				"imageUrl": "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-qs-news/6f10a2d0-b633-11ea-8a36-ebb87efcf8c0.jpg",
@@ -207,7 +225,7 @@
 			},
 			{
 				"_id": "5ef36b0e71aa80004d7e0bf2",
-				"categoryId": "",
+				"categoryId": "fcca363a5ef715df0005cd13300816c6",
 				"title": "苹果 macOS 11.0 Big Sur 正式发布：全新访达、Dock、控制中心、通知中心",
 				"subTitle": "",
 				"imageUrl": "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-qs-news/6f203330-b633-11ea-8a36-ebb87efcf8c0.jpg",
@@ -233,7 +251,7 @@
 			},
 			{
 				"_id": "5ef36b300a0d75004c024076",
-				"categoryId": "",
+				"categoryId": "fcca363a5ef715df0005cd13300816c6",
 				"title": "苹果 iPadOS 14 正式发布：重新设计应用，全局搜索，手写笔识别升级",
 				"subTitle": "",
 				"imageUrl": "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-qs-news/6f13fe30-b633-11ea-8a36-ebb87efcf8c0.jpg",
@@ -259,7 +277,7 @@
 			},
 			{
 				"_id": "5ef36b3f550399004d73e6fe",
-				"categoryId": "",
+				"categoryId": "fcca363a5ef715df0005cd13300816c6",
 				"title": "苹果 iOS 14 正式发布：全新主屏幕含小插件、汽车钥匙、App Clip 小程序",
 				"subTitle": "",
 				"imageUrl": "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-qs-news/6f2192c0-b633-11ea-8a36-ebb87efcf8c0.jpg",
@@ -285,7 +303,7 @@
 			},
 			{
 				"_id": "5ef36b51e260f0004ce40ef4",
-				"categoryId": "",
+				"categoryId": "fcca363a5ef715df0005cd13300816c6",
 				"title": "【WWDC20专访】 IT之家对话Swift超新手钱睿超：那8500万消失的残障者在哪",
 				"subTitle": "",
 				"imageUrl": "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-qs-news/574b6e50-b633-11ea-b680-7980c8a877b8.jpg",
@@ -311,7 +329,7 @@
 			},
 			{
 				"_id": "5ef36b60de1810004cf8eb98",
-				"categoryId": "",
+				"categoryId": "fcca363a5ef715df0005cd13300816c6",
 				"title": "【WWDC20专访】 IT之家对话“Papercutting” 开发者：编程与传统艺术的碰撞",
 				"subTitle": "",
 				"imageUrl": "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-qs-news/575447f0-b633-11ea-8bd0-2998ac5bbf7e.jpg",
@@ -348,7 +366,7 @@
 		}]
 	},
 	// 标签表
-	"tag": {
+	"news-tag": {
 		"data": [ // 数据
 			{
 				"_id": "5ef36827f176d1004dbe554f",

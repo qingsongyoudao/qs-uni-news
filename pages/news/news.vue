@@ -23,7 +23,7 @@
 		<!-- 页面主体 -->
 		<swiper :style="{ height: height }" :current="tabs.current" @change="swiperChange">
 			<swiper-item v-for="(tab, i) in tabs.items" :key="i">
-				<mescroll-item :i="i" :index="tabs.current" :tabs="tabs.items"></mescroll-item>
+				<mescroll-item :index="tabs.current"></mescroll-item>
 			</swiper-item>
 		</swiper>
 	</qs-page>

@@ -16,7 +16,10 @@ export default {
 		List
 	},
 	props: {
-		tabs: Array
+		index: {
+			type: Number,
+			default: 0
+		}
 	},
 	data() {
 		return {
@@ -29,7 +32,7 @@ export default {
 			},
 			page: {
 				index: 1,
-				size: 6
+				size: 10
 			},
 			dataList: []
 		};
@@ -42,16 +45,18 @@ export default {
 		},
 		/* 上拉加载的回调 */
 		upCallback(page) {
+			let param = {
+				type: this.index,
+				page: {
+					index: parseInt(page.num),
+					size: parseInt(page.size)
+				}
+			};
 			// 联网加载数据
 			uniCloud
 				.callFunction({
 					name: 'news-list',
-					data: {
-						page: {
-							index: parseInt(page.num),
-							size: parseInt(page.size)
-						}
-					}
+					data: param
 				})
 				.then(res => {
 					console.log(res);
