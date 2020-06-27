@@ -25,6 +25,11 @@
 		"style": {
 			"navigationStyle": "custom"
 		}
+	}, {
+		"path": "pages/news/publish",
+		"style": {
+			"navigationBarTitleText": "投稿"
+		}
 	}],
 	"globalStyle": {
 		"pageOrientation": "portrait",

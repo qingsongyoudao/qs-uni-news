@@ -13,8 +13,8 @@
 					<view class="u-line-2 news-title">{{ item.title }}</view>
 				</view>
 				<view class="u-flex u-row-between news-extra">
-					<view>{{ item.date }}</view>
-					<view>{{ item.comment }} 评</view>
+					<view>{{ item.publishDate }}</view>
+					<view>100 评</view>
 				</view>
 			</view>
 		</view>

@@ -15,14 +15,21 @@
 			<status-bar></status-bar>
 			<nav-bar></nav-bar>
 		</block>
-	
+
 		<!-- 页面主体 -->
 		<u-gap height="20"></u-gap>
 
 		<view class="list-box">
 			<u-cell-group v-for="(item, index) in list" :key="index" :border="false">
 				<view class="list-main">
-					<u-cell-item :title="item1.title" :value="item1.value" @click="tip" v-for="(item1, index1) in item.cells" :key="index1" :border-bottom="false"></u-cell-item>
+					<u-cell-item
+						:title="item1.title"
+						:value="item1.value"
+						@click="openPage(item1.path)"
+						v-for="(item1, index1) in item.cells"
+						:key="index1"
+						:border-bottom="false"
+					></u-cell-item>
 				</view>
 			</u-cell-group>
 		</view>
@@ -64,7 +71,7 @@ export default {
 						{
 							title: '投稿',
 							value: '',
-							path: ''
+							path: 'news/publish'
 						}
 					]
 				}
@@ -74,6 +81,9 @@ export default {
 	methods: {
 		// 打开页面
 		openPage(path) {
+			if (path == '') {
+				return this.$u.toast('暂未开通');
+			}
 			this.$u.route({
 				url: '/pages/' + path
 			});

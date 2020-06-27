@@ -75,8 +75,8 @@
 				<view class="u-m-b-20">目前，macOS Big Sur 仅限于开发人员使用，今年 7 月将提供公测 Beta 版。</view>
 			</view>
 			
-			<u-loadmore status="nomore" color="#999999"></u-loadmore>
-			<u-gap height="120"></u-gap>
+			<u-divider>没有更多了</u-divider>
+			<u-gap height="160"></u-gap>
 		</view>
 	</qs-page>
 </template>
