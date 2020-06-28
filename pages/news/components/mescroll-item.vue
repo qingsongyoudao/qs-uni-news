@@ -46,21 +46,28 @@ export default {
 		/* 上拉加载的回调 */
 		upCallback(page) {
 			let param = {
-				type: this.index,
-				page: {
-					index: parseInt(page.num),
-					size: parseInt(page.size)
+				action: 'list',
+				params: {
+					keyword: '',
+					categoryId: '',
+					status: '',
+					tag: '',
+					sort: ['_id', 'desc'],
+					page: {
+						index: parseInt(page.num),
+						size: parseInt(page.size)
+					}
 				}
 			};
 			// 联网加载数据
 			uniCloud
 				.callFunction({
-					name: 'news-list',
+					name: 'news',
 					data: param
 				})
 				.then(res => {
 					console.log(res);
-					let curPageData = res.result.data.rows;
+					let curPageData = res.result.data.rows.data;
 
 					// 联网成功的回调，隐藏下拉刷新和上拉加载的状态
 					this.mescroll.endSuccess(curPageData.length);

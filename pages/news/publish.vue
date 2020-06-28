@@ -89,10 +89,16 @@ export default {
 				if (valid) {
 					this.model.publishDate = this.$u.timeFormat((new Date()).valueOf(), 'yyyy-mm-dd hh:ss');
 					this.loading = true;
+					let param = {
+						action: 'add',
+						params: {
+							model: this.model
+						}
+					};
 					uniCloud
 						.callFunction({
-							name: 'news-add',
-							data: this.model
+							name: 'news',
+							data: param
 						})
 						.then(res => {
 							console.log(res);
