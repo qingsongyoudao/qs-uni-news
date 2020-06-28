@@ -16,9 +16,13 @@ export default {
 		List
 	},
 	props: {
-		index: {
-			type: Number,
-			default: 0
+		category: {
+			type: String,
+			default: ''
+		},
+		tag: {
+			type: String,
+			default: ''
 		}
 	},
 	data() {
@@ -28,7 +32,10 @@ export default {
 			},
 			upOption: {
 				auto: true,
-				textNoMore: '-- 没有更多了 --'
+				textNoMore: '-- 没有更多了 --',
+				empty: {
+					tip: '暂无相关信息'
+				}
 			},
 			page: {
 				index: 1,
@@ -49,9 +56,9 @@ export default {
 				action: 'list',
 				params: {
 					keyword: '',
-					categoryId: '',
+					categoryId: this.category,
 					status: '',
-					tag: '',
+					tag: this.tag,
 					sort: ['_id', 'desc'],
 					page: {
 						index: parseInt(page.num),

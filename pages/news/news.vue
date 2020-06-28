@@ -22,8 +22,29 @@
 	
 		<!-- 页面主体 -->
 		<swiper :style="{ height: height }" :current="tabs.current" @change="swiperChange">
-			<swiper-item v-for="(tab, i) in tabs.items" :key="i">
-				<mescroll-item :index="tabs.current"></mescroll-item>
+			<swiper-item>
+				<mescroll-item tag="关注"></mescroll-item>
+			</swiper-item>
+			<swiper-item>
+				<mescroll-item></mescroll-item>
+			</swiper-item>
+			<swiper-item>
+				<mescroll-item tag="热榜"></mescroll-item>
+			</swiper-item>
+			<swiper-item>
+				<mescroll-item tag="精读"></mescroll-item>
+			</swiper-item>
+			<swiper-item>
+				<mescroll-item tag="直播"></mescroll-item>
+			</swiper-item>
+			<swiper-item>
+				<mescroll-item category="fcca363a5ef715df0005cd13300816c6"></mescroll-item>
+			</swiper-item>
+			<swiper-item>
+				<mescroll-item category="5ef369a209e2e5004d313950"></mescroll-item>
+			</swiper-item>
+			<swiper-item>
+				<mescroll-item category="5ef369613e8e0b004da1709e"></mescroll-item>
 			</swiper-item>
 		</swiper>
 	</qs-page>
@@ -66,7 +87,7 @@ export default {
 						name: '无人机'
 					}
 				],
-				current: 0
+				current: 1
 			}
 		};
 	},
