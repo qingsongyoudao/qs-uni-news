@@ -1,0 +1,39 @@
+{
+  "_from": "mescroll-uni",
+  "_id": "mescroll-uni@1.2.8",
+  "_inBundle": false,
+  "_integrity": "sha512-aFEYEv/9aGOa/68+1PXuSYFID7yeN+o77b4QhcI3LGY0A2gm6eoZyqWgO0KmaA76ntso0M+Nn28oeUoecQAkHA==",
+  "_location": "/mescroll-uni",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "mescroll-uni",
+    "name": "mescroll-uni",
+    "escapedName": "mescroll-uni",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/mescroll-uni/-/mescroll-uni-1.2.8.tgz",
+  "_shasum": "a096b2910872e21eb75cf832263223daed0e8331",
+  "_spec": "mescroll-uni",
+  "_where": "D:\\test",
+  "author": {
+    "name": "wenju"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "mescroll的uni版本 -支持uni-app的下拉刷新上拉加载组件,支持原生页面和局部区域滚动",
+  "license": "MIT",
+  "main": "mescroll-uni.vue",
+  "name": "mescroll-uni",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.2.8"
+}
