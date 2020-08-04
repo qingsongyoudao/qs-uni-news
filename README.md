@@ -2,6 +2,17 @@
 
 基于`uView UI`框架开发的`uni-app`资讯模块，跨平台，可发布到 iOS、Android、H5、以及各种小程序（微信/支付宝/百度/头条/QQ/钉钉/淘宝）、快应用等多个平台。
 
+## 使用方式
+
+### 创建公用模块
+1. 在`cloudfunctions`目录下创建`common`目录
+2. 在`common`目录右键创建公用模块目录`uni-curd`，会自动创建入口`index.js`文件和`package.json`，不要修改此`package.json`的`name`字段
+3. 在`uni-curd`右键上传公用模块
+
+### 引入公用模块
+1. 在要引入公用模块的云函数目录`uni-clientDB`执行`npm init -y`生成`package.json`文件
+2. 在`uni-clientDB`目录执行`npm install ../common/uni-curd`引入`uni-curd`模块
+
 ## 内容
 
 - 列表
