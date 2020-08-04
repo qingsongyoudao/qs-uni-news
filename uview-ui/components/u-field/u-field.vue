@@ -23,7 +23,7 @@
 						:type="type"
 						class="u-flex-1 u-field__input-wrap"
 						:value="value"
-						:password="password || type === 'password'"
+						:password="password || this.type === 'password'"
 						:placeholder="placeholder"
 						:placeholderStyle="placeholderStyle"
 						:disabled="disabled"
@@ -183,6 +183,11 @@ export default {
 			type: Boolean,
 			default: true
 		},
+		// 是否自动去除两端的空格
+		trim: {
+			type: Boolean,
+			default: true
+		}
 	},
 	data() {
 		return {
@@ -241,7 +246,10 @@ export default {
 	},
 	methods: {
 		onInput(event) {
-			this.$emit('input', event.target.value);
+			let value = event.detail.value;
+			// 判断是否去除空格
+			if(this.trim) value = this.$u.trim(value);
+			this.$emit('input', value);
 		},
 		onFocus(event) {
 			this.focused = true;
@@ -362,5 +370,9 @@ export default {
 
 .u-input-class {
 	font-size: 28rpx;
+}
+
+.u-button-wrap {
+	margin-left: 8rpx;
 }
 </style>

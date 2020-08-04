@@ -77,7 +77,7 @@ module.exports = function({
 		hasBeforeSend = hasHooks && getType(rule.hooks.beforeSend) === 'function'
 
 	let fieldArgs
-	if (rule.blockedField) {
+	if (rule.blockedField && type === 'read') {
 		fieldArgs = {}
 		rule.blockedField.map((item) => {
 			fieldArgs[item] = false
@@ -138,15 +138,13 @@ module.exports = function({
 			}
 		}
 
-		// 非聚合有where时，修改where条件，插入mixinCondition
-		if (method === 'where' && rule.mixinCondition) {
+		// 非聚合有where且并非create操作时，修改where条件，插入mixinCondition
+		if (method === 'where' && type !== 'create' && rule.mixinCondition) {
 			args[0] = db.command.and(args[0], rule.mixinCondition)
 		}
-		
 		exec = exec[method](...args)
-
-		// 非聚合且客户端并没有使用where的情况下，在collection之后插入where使用mixinCondition作为条件
-		if (!useAggregate && !useWhere && method === 'collection' && rule.mixinCondition) {
+		// 非聚合且客户端并没有使用where且并非create操作的情况下，在collection之后插入where使用mixinCondition作为条件
+		if (!useAggregate && !useWhere && type !== 'create' && method === 'collection' && rule.mixinCondition) {
 			exec = exec.where(rule.mixinCondition)
 		}
 

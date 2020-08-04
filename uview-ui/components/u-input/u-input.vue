@@ -24,6 +24,8 @@
 			:fixed="fixed"
 			:focus="focus"
 			:autoHeight="autoHeight"
+			:selection-end="uSelectionEnd"
+			:selection-start="uSelectionStart"
 			@input="handleInput"
 			@blur="handleBlur"
 			@focus="onFocus"
@@ -43,6 +45,8 @@
 			:focus="focus"
 			:confirmType="confirmType"
 			:cursor-spacing="getCursorSpacing"
+			:selection-end="uSelectionEnd"
+			:selection-start="uSelectionStart"
 			@focus="onFocus"
 			@blur="handleBlur"
 			@input="handleInput"
@@ -67,30 +71,32 @@
 <script>
 import Emitter from '../../libs/util/emitter.js';
 
-	/**
-	 * input 输入框
-	 * @description 此组件为一个输入框，默认没有边框和样式，是专门为配合表单组件u-form而设计的，利用它可以快速实现表单验证，输入内容，下拉选择等功能。
-	 * @tutorial http://uviewui.com/components/input.html
-	 * @property {String} type 模式选择，见官网说明
-	 * @property {Boolean} clearable 是否显示右侧的清除图标(默认true)
-	 * @property {} v-model 用于双向绑定输入框的值
-	 * @property {String} input-align 输入框文字的对齐方式(默认left)
-	 * @property {String} placeholder placeholder显示值(默认 '请输入内容')
-	 * @property {Boolean} disabled 是否禁用输入框(默认false)
-	 * @property {String Number} maxlength 输入框的最大可输入长度(默认140)
-	 * @property {String Number} cursor-spacing 指定光标与键盘的距离，单位px(默认0)
-	 * @property {String} placeholderStyle placeholder的样式，字符串形式，如"color: red;"(默认 "color: #c0c4cc;")
-	 * @property {String} confirm-type 设置键盘右下角按钮的文字，仅在type为text时生效(默认done)
-	 * @property {Object} custom-style 自定义输入框的样式，对象形式
-	 * @property {Boolean} focus 是否自动获得焦点(默认false)
-	 * @property {Boolean} fixed 如果type为textarea，且在一个"position:fixed"的区域，需要指明为true(默认false)
-	 * @property {Boolean} password-icon type为password时，是否显示右侧的密码查看图标(默认true)
-	 * @property {Boolean} border 是否显示边框(默认false)
-	 * @property {String} border-color 输入框的边框颜色(默认#dcdfe6)
-	 * @property {Boolean} auto-height 是否自动增高输入区域，type为textarea时有效(默认true)
-	 * @property {String Number} height 高度，单位rpx(text类型时为70，textarea时为100)
-	 * @example <u-input v-model="value" :type="type" :border="border" />
-	 */
+/**
+ * input 输入框
+ * @description 此组件为一个输入框，默认没有边框和样式，是专门为配合表单组件u-form而设计的，利用它可以快速实现表单验证，输入内容，下拉选择等功能。
+ * @tutorial http://uviewui.com/components/input.html
+ * @property {String} type 模式选择，见官网说明
+ * @property {Boolean} clearable 是否显示右侧的清除图标(默认true)
+ * @property {} v-model 用于双向绑定输入框的值
+ * @property {String} input-align 输入框文字的对齐方式(默认left)
+ * @property {String} placeholder placeholder显示值(默认 '请输入内容')
+ * @property {Boolean} disabled 是否禁用输入框(默认false)
+ * @property {String Number} maxlength 输入框的最大可输入长度(默认140)
+ * @property {String Number} selection-start 光标起始位置，自动聚焦时有效，需与selection-end搭配使用（默认-1）
+ * @property {String Number} maxlength 光标结束位置，自动聚焦时有效，需与selection-start搭配使用（默认-1）
+ * @property {String Number} cursor-spacing 指定光标与键盘的距离，单位px(默认0)
+ * @property {String} placeholderStyle placeholder的样式，字符串形式，如"color: red;"(默认 "color: #c0c4cc;")
+ * @property {String} confirm-type 设置键盘右下角按钮的文字，仅在type为text时生效(默认done)
+ * @property {Object} custom-style 自定义输入框的样式，对象形式
+ * @property {Boolean} focus 是否自动获得焦点(默认false)
+ * @property {Boolean} fixed 如果type为textarea，且在一个"position:fixed"的区域，需要指明为true(默认false)
+ * @property {Boolean} password-icon type为password时，是否显示右侧的密码查看图标(默认true)
+ * @property {Boolean} border 是否显示边框(默认false)
+ * @property {String} border-color 输入框的边框颜色(默认#dcdfe6)
+ * @property {Boolean} auto-height 是否自动增高输入区域，type为textarea时有效(默认true)
+ * @property {String Number} height 高度，单位rpx(text类型时为70，textarea时为100)
+ * @example <u-input v-model="value" :type="type" :border="border" />
+ */
 export default {
 	name: 'u-input',
 	mixins: [Emitter],
@@ -184,6 +190,21 @@ export default {
 		cursorSpacing: {
 			type: [Number, String],
 			default: 0
+		},
+		// 光标起始位置，自动聚焦时有效，需与selection-end搭配使用
+		selectionStart: {
+			type: [Number, String],
+			default: -1
+		},
+		// 光标结束位置，自动聚焦时有效，需与selection-start搭配使用
+		selectionEnd: {
+			type: [Number, String],
+			default: -1
+		},
+		// 是否自动去除两端的空格
+		trim: {
+			type: Boolean,
+			default: true
 		}
 	},
 	data() {
@@ -194,7 +215,6 @@ export default {
 			validateState: false, // 当前input的验证状态，用于错误时，边框是否改为红色
 			focused: false, // 当前是否处于获得焦点的状态
 			showPassword: false, // 是否预览密码
-			marginRight: 0, // 输入框右边的距离，当获得焦点时各一个后面的距离，避免点击右边图标误触输入框
 		};
 	},
 	watch: {
@@ -207,11 +227,6 @@ export default {
 				}
 			})
 		},
-		focused(nVal) {
-			if(this.clearable && this.value) {
-				this.getMarginRight();
-			}
-		}
 	},
 	computed: {
 		// 因为uniapp的input组件的maxlength组件必须要数值，这里转为数值，给用户可以传入字符串数值
@@ -223,46 +238,44 @@ export default {
 			// 如果没有自定义高度，就根据type为input还是textare来分配一个默认的高度
 			style.minHeight = this.height ? this.height + 'rpx' : this.type == 'textarea' ?
 				this.textareaHeight + 'rpx' : this.inputHeight + 'rpx';
-			style.marginRight = this.marginRight + 'px';
 			style = Object.assign(style, this.customStyle);
 			return style;
 		},
 		//
 		getCursorSpacing() {
 			return Number(this.cursorSpacing);
+		},
+		// 光标起始位置
+		uSelectionStart() {
+			return String(this.selectionStart);
+		},
+		// 光标结束位置
+		uSelectionEnd() {
+			return String(this.selectionEnd);
 		}
 	},
 	created() {
 		// 监听u-form-item发出的错误事件，将输入框边框变红色
 		this.$on('on-form-item-error', this.onFormItemError);
 	},
-	mounted() {
-		this.getMarginRight();
-	},
 	methods: {
-		// 计算输入框的右边距
-		getMarginRight() {
-			this.$nextTick(() => {
-				this.$uGetRect('.u-input__right-icon').then(res => {
-					// 此处20rpx为图标绝对定位右侧的“right”
-					this.marginRight = res.width + uni.upx2px(20);
-				})
-			})
-		},
 		/**
 		 * change 事件
 		 * @param event
 		 */
 		handleInput(event) {
+			let value = event.detail.value;
+			// 判断是否去除空格
+			if(this.trim) value = this.$u.trim(value);
 			// 当前model 赋值
-			this.defaultValue = event.detail.value;
+			this.defaultValue = value;
 			// vue 原生的方法 return 出去
-			this.$emit('input', event.detail.value);
+			this.$emit('input', value);
 			// 过一个生命周期再发送事件给u-form-item，否则this.$emit('input')更新了父组件的值，但是微信小程序上
 			// 尚未更新到u-form-item，导致获取的值为空，从而校验混论
 			this.$nextTick(() => {
 				// 将当前的值发送到 u-form-item 进行校验
-				this.dispatch('u-form-item', 'on-form-change', event.detail.value);
+				this.dispatch('u-form-item', 'on-form-change', value);
 			});
 		},
 		/**
@@ -302,11 +315,13 @@ export default {
 .u-input {
 	position: relative;
 	flex: 1;
+	display: flex;
 
 	&__input {
 		//height: $u-form-item-height;
 		font-size: 28rpx;
 		color: $u-main-color;
+		flex: 1;
 	}
 
 	&__textarea {
@@ -315,6 +330,7 @@ export default {
 		color: $u-main-color;
 		padding: 10rpx 0;
 		line-height: normal;
+		flex: 1;
 	}
 
 	&--border {
@@ -328,11 +344,6 @@ export default {
 	}
 
 	&__right-icon {
-		position: absolute;
-		right: 0;
-		top: 50%;
-		z-index: 3;
-		transform: translateY(-50%);
 
 		&__item {
 			margin-left: 10rpx;

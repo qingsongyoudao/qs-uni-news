@@ -230,7 +230,14 @@ export default {
 		beforeUpload: {
 			type: Function,
 			default: null
-		}
+		},
+		// 允许上传的图片后缀
+		limitType:{
+			type: Array,
+			default() {
+				return ['png', 'jpg', 'jpeg', 'webp', 'gif'];
+			}
+		},
 	},
 	mounted() {},
 	data() {
@@ -291,6 +298,9 @@ export default {
 					let file = null;
 					let listOldLength = this.lists.length;
 					res.tempFiles.map((val, index) => {
+						// 检查文件后缀是否允许，如果不在this.limitType内，就会返回false
+						if(!this.checkFileExt(val)) return ;
+						
 						// 如果是非多选，index大于等于1或者超出最大限制数量时，不处理
 						if (!multiple && index >= 1) return;
 						if (val.size > maxSize) {
@@ -349,11 +359,6 @@ export default {
 				this.$emit('on-uploaded', this.lists);
 				return;
 			}
-			// 检查上传地址
-			if (!this.action) {
-				this.showToast('请配置上传地址', true);
-				return;
-			}
 			// 检查是否是已上传或者正在上传中
 			if (this.lists[index].progress == 100) {
 				if (this.autoUpload == false) this.uploadFile(index + 1);
@@ -362,7 +367,12 @@ export default {
 			// 执行before-upload钩子
 			if(this.beforeUpload && typeof(this.beforeUpload) === 'function') {
 				// 执行回调，同时传入索引和文件列表当作参数
-				let beforeResponse = this.beforeUpload(index, this.lists);
+				// 在微信，支付宝等环境(H5正常)，会导致父组件定义的customBack()函数体中的this变成子组件的this
+				// 通过bind()方法，绑定父组件的this，让this.customBack()的this为父组件的上下文
+				// 因为upload组件可能会被嵌套在其他组件内，比如u-form，这时this.$parent其实为u-form的this，
+				// 非页面的this，所以这里需要往上历遍，一直寻找到最顶端的$parent，这里用了this.$u.$parent.call(this)
+				// 明白意思即可，无需纠结this.$u.$parent.call(this)的细节
+				let beforeResponse = this.beforeUpload.bind(this.$u.$parent.call(this))(index, this.lists);
 				// 判断是否返回了promise
 				if (!!beforeResponse && typeof beforeResponse.then === 'function') {
 					await beforeResponse.then(res => {
@@ -376,6 +386,11 @@ export default {
 					return this.uploadFile(index + 1);
 				}
 			}
+			// 检查上传地址
+			if (!this.action) {
+				this.showToast('请配置上传地址', true);
+				return;
+			}
 			this.lists[index].error = false;
 			this.uploading = true;
 			// 创建上传对象
@@ -387,8 +402,8 @@ export default {
 				header: this.header,
 				success: res => {
 					// 判断是否json字符串，将其转为json格式
-					let data = this.toJson && this.checkIsJSON(res.data) ? JSON.parse(res.data) : res.data;
-					if (![200, 201].includes(res.statusCode)) {
+					let data = this.toJson && this.$u.test.jsonString(res.data) ? JSON.parse(res.data) : res.data;
+					if (![200, 201, 204].includes(res.statusCode)) {
 						this.uploadError(index, data);
 					} else {
 						// 上传成功
@@ -467,21 +482,28 @@ export default {
 				}
 			});
 		},
-		// 判断是否json字符串
-		checkIsJSON(str) {
-			if (typeof str == 'string') {
-				try {
-					var obj = JSON.parse(str);
-					if (typeof obj == 'object' && obj) {
-						return true;
-					} else {
-						return false;
-					}
-				} catch (e) {
-					return false;
-				}
-			}
-			return false;
+		// 判断文件后缀是否允许
+		checkFileExt(file) {
+			// 检查是否在允许的后缀中
+			let noArrowExt = false;
+			// 获取后缀名
+			let fileExt = '';
+			const reg = /.+\./;
+			// 如果是H5，需要从name中判断
+			// #ifdef H5
+			fileExt = file.name.replace(reg, "").toLowerCase();
+			// #endif
+			// 非H5，需要从path中读取后缀
+			// #ifndef H5
+			fileExt = file.path.replace(reg, "").toLowerCase();
+			// #endif
+			// 使用数组的some方法，只要符合limitType中的一个，就返回true
+			noArrowExt = this.limitType.some(ext => {
+				// 转为小写
+				return ext.toLowerCase() === fileExt;
+			})
+			if(!noArrowExt) this.showToast(`不允许选择${fileExt}格式的文件`);
+			return noArrowExt;
 		}
 	}
 };

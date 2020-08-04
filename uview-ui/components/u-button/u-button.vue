@@ -66,6 +66,7 @@
  * @property {Boolean} loading 按钮名称前是否带 loading 图标(App-nvue 平台，在 ios 上为雪花，Android上为圆圈)
  * @property {String} form-type 用于 <form> 组件，点击分别会触发 <form> 组件的 submit/reset 事件
  * @property {String} open-type 开放能力
+ * @property {String} data-name 额外传参参数，用于小程序的data-xxx属性，通过target.dataset.name获取
  * @property {String} hover-class 指定按钮按下去的样式类。当 hover-class="none" 时，没有点击态效果(App-nvue 平台暂不支持)
  * @property {Number} hover-start-time 按住后多久出现点击态，单位毫秒
  * @property {Number} hover-stay-time 手指松开后点击态保留时间，单位毫秒
@@ -204,6 +205,11 @@ export default {
 		dataName: {
 			type: String,
 			default: ''
+		},
+		// 节流，一定时间内只能触发一次
+		throttleTime: {
+			type: [String, Number],
+			default: 1000
 		}
 	},
 	computed: {
@@ -235,17 +241,20 @@ export default {
 	methods: {
 		// 按钮点击
 		click(e) {
-			// 如果按钮时disabled和loading状态，不触发水波纹效果
-			if (this.loading === true || this.disabled === true) return;
-			// 是否开启水波纹效果
-			if (this.ripple) {
-				// 每次点击时，移除上一次的类，再次添加，才能触发动画效果
-				this.waveActive = false;
-				this.$nextTick(function() {
-					this.getWaveQuery(e);
-				});
-			}
-			this.$emit('click');
+			// 进行节流控制，每this.throttle毫秒内，只在开始处执行
+			this.$u.throttle(() => {
+				// 如果按钮时disabled和loading状态，不触发水波纹效果
+				if (this.loading === true || this.disabled === true) return;
+				// 是否开启水波纹效果
+				if (this.ripple) {
+					// 每次点击时，移除上一次的类，再次添加，才能触发动画效果
+					this.waveActive = false;
+					this.$nextTick(function() {
+						this.getWaveQuery(e);
+					});
+				}
+				this.$emit('click', e);
+			}, this.throttleTime);
 		},
 		// 查询按钮的节点信息
 		getWaveQuery(e) {

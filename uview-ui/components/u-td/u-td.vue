@@ -21,33 +21,20 @@
 				default: 'auto'
 			}
 		},
-		data() {
-			return {
-				tr: []
-			};
-		},
-		inject: ['uTable', 'uTr'],
-		provide() {
-			return {
-				uTd: this
-			}
-		},
-		created() {
-
-		},
+		inject: ['uTable'],
 		computed: {
 			tdStyle() {
 				let style = {};
 				if (this.width != "auto") style.flex = `0 0 ${this.width}`;
 				style.textAlign = this.uTable.align;
-				style.padding = this.tr.length == 0 ? this.uTable.padding : 0;
-				style.borderBottom = this.tr.length == 0 ? `solid 1px ${this.uTable.borderColor}` : 0;
-				style.borderRight = this.tr.length == 0 ? `solid 1px ${this.uTable.borderColor}` : 0;
 				style.fontSize = this.uTable.fontSize + 'rpx';
+				style.padding = this.uTable.padding;
+				style.borderBottom = `solid 1px ${this.uTable.borderColor}`;
+				style.borderRight = `solid 1px ${this.uTable.borderColor}`;
 				style.color = this.uTable.color;
 				return style;
 			}
-		}
+		},
 	};
 </script>
 

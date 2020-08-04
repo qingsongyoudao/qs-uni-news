@@ -1,28 +1,30 @@
 <template>
-	<movable-area class="u-swipe-action" :style="{ backgroundColor: bgColor }">
-		<movable-view
-			class="u-swipe-view"
-			@change="change"
-			@touchend="touchend"
-			@touchstart="touchstart"
-			direction="horizontal"
-			:disabled="disabled"
-			:x="moveX"
-			:style="{
-				width: movableViewWidth ? movableViewWidth : '100%'
-			}"
-		>
-			<view
-				class="u-swipe-content"
-				@tap.stop="contentClick"
+	<view class="">
+		<movable-area class="u-swipe-action" :style="{ backgroundColor: bgColor }">
+			<movable-view
+				class="u-swipe-view"
+				@change="change"
+				@touchend="touchend"
+				@touchstart="touchstart"
+				direction="horizontal"
+				:disabled="disabled"
+				:x="moveX"
+				:style="{
+					width: movableViewWidth ? movableViewWidth : '100%'
+				}"
 			>
-				<slot></slot>
-			</view>
-			<view class="u-swipe-del" v-if="showBtn" @tap.stop="btnClick(index)" :style="[btnStyle(item.style)]" v-for="(item, index) in options" :key="index">
-				<view class="u-btn-text">{{ item.text }}</view>
-			</view>
-		</movable-view>
-	</movable-area>
+				<view
+					class="u-swipe-content"
+					@tap.stop="contentClick"
+				>
+					<slot></slot>
+				</view>
+				<view class="u-swipe-del" v-if="showBtn" @tap.stop="btnClick(index)" :style="[btnStyle(item.style)]" v-for="(item, index) in options" :key="index">
+					<view class="u-btn-text">{{ item.text }}</view>
+				</view>
+			</movable-view>
+		</movable-area>
+	</view>
 </template>
 
 <script>
@@ -125,10 +127,6 @@ export default {
 	},
 	mounted() {
 		this.getActionRect();
-		// 等视图更新完后，再显示右边的可滑动按钮，防止这些按钮会"闪一下"
-		setTimeout(() => {
-			this.showBtn = true;
-		}, 10);
 	},
 	methods: {
 		// 点击按钮
@@ -202,6 +200,10 @@ export default {
 		getActionRect() {
 			this.$uGetRect('.u-swipe-action').then(res => {
 				this.movableAreaWidth = res.width;
+				// 等视图更新完后，再显示右边的可滑动按钮，防止这些按钮会"闪一下"
+				this.$nextTick(() => {
+					this.showBtn = true;
+				})
 			});
 		},
 		// 点击内容触发事件
