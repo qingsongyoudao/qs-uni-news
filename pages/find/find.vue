@@ -98,8 +98,8 @@ export default {
 	onLoad() {
 		let params = {
 			page: {
-				index: 1,
-				size: 10
+				index: 2,
+				size: 3
 			}
 		};
 		api.list(params)

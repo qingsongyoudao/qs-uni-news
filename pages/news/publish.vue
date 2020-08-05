@@ -27,6 +27,8 @@
 </template>
 
 <script>
+var api = require('@/common/js/news.api.js');
+
 export default {
 	data() {
 		return {
@@ -87,23 +89,21 @@ export default {
 		submit() {
 			this.$refs.uForm.validate(valid => {
 				if (valid) {
-					this.model.publishDate = this.$u.timeFormat((new Date()).valueOf(), 'yyyy-mm-dd hh:ss');
+					//this.model.publishDate = this.$u.timeFormat(new Date().valueOf(), 'yyyy-mm-dd hh:ss');
 					this.loading = true;
-					let param = {
-						action: 'add',
-						params: {
-							model: this.model
-						}
+					let params = {
+						model: this.model
 					};
-					uniCloud
-						.callFunction({
-							name: 'news',
-							data: param
-						})
+					api.add(params)
 						.then(res => {
 							console.log(res);
 							this.loading = false;
 							return this.$u.toast('提交成功');
+						})
+						.catch(err => {
+							console.log(err);
+							this.loading = false;
+							return this.$u.toast('出错，请稍后再试');
 						});
 				} else {
 					console.log('验证失败');

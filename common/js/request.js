@@ -7,13 +7,13 @@ export default function(obj) {
 				params: obj.data
 			},
 			success(res) {
-				console.log(res)
+				//console.log(res)
 				var data = res.result
-				console.log(data)
+				//console.log(data)
 				resolve(data)
 			},
 			fail(err) {
-				console.error(err)
+				//console.error(err)
 				reject(new Error('服务器异常，请稍后再试'))
 			}
 		})
