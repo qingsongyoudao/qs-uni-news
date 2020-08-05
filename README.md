@@ -6,12 +6,12 @@
 
 ### 创建公用模块
 1. 在`cloudfunctions`目录下创建`common`目录
-2. 在`common`目录右键创建公用模块目录`uni-curd`，会自动创建入口`index.js`文件和`package.json`，不要修改此`package.json`的`name`字段
-3. 在`uni-curd`右键上传公用模块
+2. 在`common`目录右键创建公用模块目录`qs-news`，会自动创建入口`index.js`文件和`package.json`，不要修改此`package.json`的`name`字段
+3. 在`qs-news`右键上传公用模块
 
 ### 引入公用模块
-1. 在要引入公用模块的云函数目录`uni-clientDB`执行`npm init -y`生成`package.json`文件
-2. 在`uni-clientDB`目录执行`npm install ../common/uni-curd`引入`uni-curd`模块
+1. 在要引入公用模块的云函数目录`news`执行`npm init -y`生成`package.json`文件
+2. 在`news`目录执行`npm install ../common/qs-news`引入`qs-news`模块
 
 ## 内容
 
