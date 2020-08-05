@@ -1,9 +1,8 @@
 // 本文件中的json内容将在云函数【上传并运行】时作为参数传给云函数。
 
 {
-	"action": "category-update",
+	"action": "categoryAdd",
 	"params": {
-		"id": "5ef648d2985034004c3001c9",
 		"model": {
 			"parentId": "",
 			"name": "无人机",

@@ -1,11 +1,8 @@
 // 本文件中的json内容将在云函数【上传并运行】时作为参数传给云函数。
 
 {
-	"action": "tag-add",
+	"action": "tagDetail",
 	"params": {
-		"model": {
-			"name": "音频",
-			"status": "normal"
-		}
+		"id": "5ef36827f176d1004dbe554f"
 	}
 }
