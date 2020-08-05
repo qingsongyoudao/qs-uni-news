@@ -1,169 +1,132 @@
 import request from '@/common/js/request.js'
-var url = 'account'
+var url = 'news'
 
 module.exports = {
-	// 注册
-	register(data) {
+	list(data) {
 		return request({
 			url,
-			method: 'register',
+			action: 'list',
 			data
 		})
 	},
-	registerByEmail(data) {
+	detail(data) {
 		return request({
 			url,
-			method: 'register-email',
+			action: 'detail',
 			data
 		})
 	},
-	registerByMobile(data) {
+	add(data) {
 		return request({
 			url,
-			method: 'register-mobile',
+			action: 'add',
 			data
 		})
 	},
-	// 登录
-	login(data) {
+	update(data) {
 		return request({
 			url,
-			method: 'login',
+			action: 'update',
 			data
 		})
 	},
-	loginBySms(data) {
+	delete(data) {
 		return request({
 			url,
-			method: 'login-sms',
+			action: 'delete',
 			data
 		})
 	},
-	// 退出
-	logout(data) {
+	empty(data) {
 		return request({
 			url,
-			method: 'logout',
+			action: 'empty',
 			data
 		})
 	},
-	emptyToken(data) {
+	// 类别
+	categoryList(data) {
 		return request({
 			url,
-			method: 'empty-token',
+			action: 'categoryList',
 			data
 		})
 	},
-	// 密码
-	setPassword(data) {
+	categoryDetail(data) {
 		return request({
 			url,
-			method: 'set-password',
+			action: 'categoryDetail',
 			data
 		})
 	},
-	updatePassword(data) {
+	categoryAdd(data) {
 		return request({
 			url,
-			method: 'update-password',
+			action: 'categoryAdd',
 			data
 		})
 	},
-	// 用户名
-	setUserName(data) {
+	categoryUpdate(data) {
 		return request({
 			url,
-			method: 'set-userName',
+			action: 'categoryUpdate',
 			data
 		})
 	},
-	updateUserName(data) {
+	categoryDelete(data) {
 		return request({
 			url,
-			method: 'update-userName',
+			action: 'categoryDelete',
 			data
 		})
 	},
-	// 邮箱
-	bindEmail(params) {
+	categoryEmpty(data) {
 		return request({
 			url,
-			method: 'bind-email',
+			action: 'categoryEmpty',
 			data
 		})
 	},
-	updateEmail(data) {
+	// 标签
+	tagList(data) {
 		return request({
 			url,
-			method: 'update-email',
+			action: 'tagList',
 			data
 		})
 	},
-	unbindEmail(data) {
+	tagDetail(data) {
 		return request({
 			url,
-			method: 'unbind-email',
+			action: 'tagDetail',
 			data
 		})
 	},
-	// 手机号
-	bindMobile(data) {
+	tagAdd(data) {
 		return request({
 			url,
-			method: 'bind-mobile',
+			action: 'tagAdd',
 			data
 		})
 	},
-	updateMobile(data) {
+	tagUpdate(data) {
 		return request({
 			url,
-			method: 'update-mobile',
+			action: 'tagUpdate',
 			data
 		})
 	},
-	unbindMobile(data) {
+	tagDelete(data) {
 		return request({
 			url,
-			method: 'unbind-mobile',
+			action: 'tagDelete',
 			data
 		})
 	},
-	// 图像
-	setAvatar(data) {
+	tagEmpty(data) {
 		return request({
 			url,
-			method: 'set-avatar',
-			data
-		})
-	},
-	// 用户
-	updateUser(data) {
-		return request({
-			url,
-			method: 'update-user',
-			data
-		})
-	},
-	// token
-	checkToken(data) {
-		return request({
-			url,
-			method: 'check-token',
-			data
-		})
-	},
-	// 获取
-	getUser(data) {
-		return request({
-			url,
-			method: 'get-user',
-			data
-		})
-	},
-	getAccount(data) {
-		return request({
-			url,
-			method: 'get-account',
+			action: 'tagEmpty',
 			data
 		})
 	}

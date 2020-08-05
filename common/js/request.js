@@ -3,7 +3,7 @@ export default function(obj) {
 		uniCloud.callFunction({
 			name: obj.url,
 			data: {
-				method: obj.method,
+				action: obj.action,
 				params: obj.data
 			},
 			success(res) {
