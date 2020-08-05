@@ -1,6 +1,6 @@
 {
-  "name": "uni-curd",
-  "version": "1.0.5",
+  "name": "news",
+  "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,5 +8,8 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "qs-news": "file:../common/qs-news"
+  }
 }

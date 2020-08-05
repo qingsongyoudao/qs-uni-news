@@ -1,0 +1,10 @@
+{
+  "name": "qs-news",
+  "version": "1.0.2",
+  "description": "为 uniCloud 开发者提供了简单、统一、可扩展的资讯模块云函数类插件，支持阿里云、腾讯云。",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": ["news", "uni", "uniCloud"],
+  "author": "qingsongyoudao",
+  "license": "ISC"
+}

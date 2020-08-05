@@ -1,0 +1,14 @@
+// 本文件中的json内容将在云函数【上传并运行】时作为参数传给云函数。
+
+{
+	"action": "tag-list",
+	"params": {
+		"keyword": "",
+		"status": "",
+		"sort": ["sort", "asc"],
+		"page": {
+			"index": 1,
+			"size": 10
+		}
+	}
+}
