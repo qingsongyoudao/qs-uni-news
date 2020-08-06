@@ -39,8 +39,6 @@
 </template>
 
 <script>
-var api = require('@/common/js/news.api.js');
-
 export default {
 	data() {
 		return {
@@ -94,22 +92,6 @@ export default {
 		tip() {
 			return this.$u.toast('暂未开通');
 		}
-	},
-	onLoad() {
-		let params = {
-			page: {
-				index: 2,
-				size: 3
-			}
-		};
-		api.list(params)
-			.then(res => {
-				console.log(res);
-			})
-			.catch(err => {
-				console.log(err);
-				return this.$u.toast('出错，请稍后再试');
-			});
 	}
 };
 </script>

@@ -1,51 +1,79 @@
 <template>
 	<view class="mescroll-uni-warp">
-		<scroll-view :id="viewId" class="mescroll-uni" :class="{'mescroll-uni-fixed':isFixed}" :style="{'height':scrollHeight,'padding-top':padTop,'padding-bottom':padBottom,'top':fixedTop,'bottom':fixedBottom}" :scroll-top="scrollTop" :scroll-into-view="scrollToViewId" :scroll-with-animation="scrollAnim" @scroll="scroll" @touchstart="touchstartEvent" @touchmove="touchmoveEvent" @touchend="touchendEvent" @touchcancel="touchendEvent" :scroll-y='scrollable' :enable-back-to-top="true">
-			<!-- 状态栏 -->
-			<view v-if="topbar&&statusBarHeight" class="mescroll-topbar" :style="{height: statusBarHeight+'px', background: topbar}"></view>
+		<scroll-view :id="viewId" class="mescroll-uni" :class="{'mescroll-uni-fixed':isFixed}" :style="{'height':scrollHeight,'padding-top':padTop,'padding-bottom':padBottom,'top':fixedTop,'bottom':fixedBottom}" :scroll-top="scrollTop" :scroll-with-animation="scrollAnim" @scroll="scroll" :scroll-y='scrollable' :enable-back-to-top="true">
+			<view class="mescroll-uni-content mescroll-render-touch"
+			@touchstart="wxsBiz.touchstartEvent" 
+			@touchmove="wxsBiz.touchmoveEvent" 
+			@touchend="wxsBiz.touchendEvent" 
+			@touchcancel="wxsBiz.touchendEvent"
+			:change:prop="wxsBiz.propObserver"
+			:prop="wxsProp">
+				<!-- 状态栏 -->
+				<view v-if="topbar&&statusBarHeight" class="mescroll-topbar" :style="{height: statusBarHeight+'px', background: topbar}"></view>
 		
-			<view class="mescroll-uni-content" :style="{'transform': translateY, 'transition': transition}">
-				<!-- 下拉加载区域 (支付宝小程序子组件传参给子子组件仍报单项数据流的异常,暂时不通过mescroll-down组件实现)-->
-				<!-- <mescroll-down :option="mescroll.optDown" :type="downLoadType" :rate="downRate"></mescroll-down> -->
-				<view v-if="mescroll.optDown.use" class="mescroll-downwarp" :style="{'background':mescroll.optDown.bgColor,'color':mescroll.optDown.textColor}">
-					<view class="downwarp-content">
-						<view class="downwarp-progress" :class="{'mescroll-rotate': isDownLoading}" :style="{'border-color':mescroll.optDown.textColor, 'transform': downRotate}"></view>
-						<view class="downwarp-tip">{{downText}}</view>
+				<view class="mescroll-wxs-content" :style="{'transform': translateY, 'transition': transition}" :change:prop="wxsBiz.callObserver" :prop="callProp">
+					<!-- 下拉加载区域 (支付宝小程序子组件传参给子子组件仍报单项数据流的异常,暂时不通过mescroll-down组件实现)-->
+					<!-- <mescroll-down :option="mescroll.optDown" :type="downLoadType" :rate="downRate"></mescroll-down> -->
+					<view v-if="mescroll.optDown.use" class="mescroll-downwarp" :style="{'background':mescroll.optDown.bgColor,'color':mescroll.optDown.textColor}">
+						<view class="downwarp-content">
+							<view class="downwarp-progress mescroll-wxs-progress" :class="{'mescroll-rotate': isDownLoading}" :style="{'border-color':mescroll.optDown.textColor, 'transform': downRotate}"></view>
+							<view class="downwarp-tip">{{downText}}</view>
+						</view>
+					</view>
+
+					<!-- 列表内容 -->
+					<slot></slot>
+
+					<!-- 空布局 -->
+					<mescroll-empty v-if="isShowEmpty" :option="mescroll.optUp.empty" @emptyclick="emptyClick"></mescroll-empty>
+
+					<!-- 上拉加载区域 (下拉刷新时不显示, 支付宝小程序子组件传参给子子组件仍报单项数据流的异常,暂时不通过mescroll-up组件实现)-->
+					<!-- <mescroll-up v-if="mescroll.optUp.use && !isDownLoading && upLoadType!==3" :option="mescroll.optUp" :type="upLoadType"></mescroll-up> -->
+					<view v-if="mescroll.optUp.use && !isDownLoading && upLoadType!==3" class="mescroll-upwarp" :style="{'background':mescroll.optUp.bgColor,'color':mescroll.optUp.textColor}">
+						<!-- 加载中 (此处不能用v-if,否则android小程序快速上拉可能会不断触发上拉回调) -->
+						<view v-show="upLoadType===1">
+							<view class="upwarp-progress mescroll-rotate" :style="{'border-color':mescroll.optUp.textColor}"></view>
+							<view class="upwarp-tip">{{ mescroll.optUp.textLoading }}</view>
+						</view>
+						<!-- 无数据 -->
+						<view v-if="upLoadType===2" class="upwarp-nodata">{{ mescroll.optUp.textNoMore }}</view>
 					</view>
 				</view>
-
-				<!-- 列表内容 -->
-				<slot></slot>
-
-				<!-- 空布局 -->
-				<mescroll-empty v-if="isShowEmpty" :option="mescroll.optUp.empty" @emptyclick="emptyClick"></mescroll-empty>
-
-				<!-- 上拉加载区域 (下拉刷新时不显示, 支付宝小程序子组件传参给子子组件仍报单项数据流的异常,暂时不通过mescroll-up组件实现)-->
-				<!-- <mescroll-up v-if="mescroll.optUp.use && !isDownLoading && upLoadType!==3" :option="mescroll.optUp" :type="upLoadType"></mescroll-up> -->
-				<view v-if="mescroll.optUp.use && !isDownLoading && upLoadType!==3" class="mescroll-upwarp" :style="{'background':mescroll.optUp.bgColor,'color':mescroll.optUp.textColor}">
-					<!-- 加载中 (此处不能用v-if,否则android小程序快速上拉可能会不断触发上拉回调) -->
-					<view v-show="upLoadType===1">
-						<view class="upwarp-progress mescroll-rotate" :style="{'border-color':mescroll.optUp.textColor}"></view>
-						<view class="upwarp-tip">{{ mescroll.optUp.textLoading }}</view>
-					</view>
-					<!-- 无数据 -->
-					<view v-if="upLoadType===2" class="upwarp-nodata">{{ mescroll.optUp.textNoMore }}</view>
-				</view>
+			
+				<!-- 底部是否偏移TabBar的高度(默认仅在H5端的tab页生效) -->
+				<!-- #ifdef H5 -->
+				<view v-if="bottombar && windowBottom>0" class="mescroll-bottombar" :style="{height: windowBottom+'px'}"></view>
+				<!-- #endif -->
+				
+				<!-- 适配iPhoneX -->
+				<view v-if="safearea" class="mescroll-safearea"></view>
 			</view>
-			
-			<!-- 底部是否偏移TabBar的高度(默认仅在H5端的tab页生效) -->
-			<!-- #ifdef H5 -->
-			<view v-if="bottombar && windowBottom>0" class="mescroll-bottombar" :style="{height: windowBottom+'px'}"></view>
-			<!-- #endif -->
-			
-			<!-- 适配iPhoneX -->
-			<view v-if="safearea" class="mescroll-safearea"></view>
 		</scroll-view>
 
 		<!-- 回到顶部按钮 (fixed元素,需写在scroll-view外面,防止滚动的时候抖动)-->
 		<mescroll-top v-model="isShowToTop" :option="mescroll.optUp.toTop" @click="toTopClick"></mescroll-top>
+		
+		<!-- #ifdef MP-WEIXIN || MP-QQ || APP-PLUS || H5 -->
+		<!-- renderjs的数据载体,不可写在mescroll-downwarp内部,避免use为false时,载体丢失,无法更新数据 -->
+		<view :change:prop="renderBiz.propObserver" :prop="wxsProp"></view>
+		<!-- #endif -->
 	</view>
 </template>
+
+<!-- 微信小程序, QQ小程序, app, h5使用wxs -->
+<!-- #ifdef MP-WEIXIN || MP-QQ || APP-PLUS || H5 -->
+<script src="./wxs/wxs.wxs" module="wxsBiz" lang="wxs"></script>
+<!-- #endif -->
+
+<!-- app, h5使用renderjs -->
+<!-- #ifdef APP-PLUS || H5 -->
+<script module="renderBiz" lang="renderjs">
+	import renderBiz from './wxs/renderjs.js';
+	export default {
+		mixins:[renderBiz]
+	}
+</script>
+<!-- #endif -->
 
 <script>
 	// 引入mescroll-uni.js,处理核心逻辑
@@ -56,8 +84,11 @@
 	import MescrollEmpty from './components/mescroll-empty.vue';
 	// 引入回到顶部组件
 	import MescrollTop from './components/mescroll-top.vue';
-
+	// 引入兼容wxs(含renderjs)写法的mixins
+	import WxsMixin from './wxs/mixins.js';
+	
 	export default {
+		mixins: [WxsMixin],
 		components: {
 			MescrollEmpty,
 			MescrollTop
@@ -77,8 +108,7 @@
 				windowTop: 0, // 可使用窗口的顶部位置
 				windowBottom: 0, // 可使用窗口的底部位置
 				windowHeight: 0, // 可使用窗口的高度
-				statusBarHeight: 0, // 状态栏高度
-				scrollToViewId: '' // 滚动到指定view的id
+				statusBarHeight: 0 // 状态栏高度
 			}
 		},
 		props: {
@@ -158,6 +188,7 @@
 			},
 			// 文本提示
 			downText(){
+				if(!this.mescroll) return ""; // 避免头条小程序初始化时报错
 				switch (this.downLoadType){
 					case 1: return this.mescroll.optDown.textInOffset;
 					case 2: return this.mescroll.optDown.textOutOffset;
@@ -193,18 +224,6 @@
 					this.$emit('scroll', this.mescroll) // 此时可直接通过 this.mescroll.scrollTop获取滚动条位置; this.mescroll.isScrollUp获取是否向上滑动
 				})
 			},
-			//注册列表touchstart事件,用于下拉刷新
-			touchstartEvent(e) {
-				this.mescroll.touchstartEvent(e);
-			},
-			//注册列表touchmove事件,用于下拉刷新
-			touchmoveEvent(e) {
-				this.mescroll.touchmoveEvent(e);
-			},
-			//注册列表touchend事件,用于下拉刷新
-			touchendEvent(e) {
-				this.mescroll.touchendEvent(e);
-			},
 			// 点击空布局的按钮回调
 			emptyClick() {
 				this.$emit('emptyclick', this.mescroll)
@@ -219,12 +238,7 @@
 				if (this.mescroll.getClientHeight(true) === 0 && !this.isExec) {
 					this.isExec = true; // 避免多次获取
 					this.$nextTick(() => { // 确保dom已渲染
-						let query = uni.createSelectorQuery();
-						// #ifndef MP-ALIPAY
-						query = query.in(this) // 支付宝小程序不支持in(this),而字节跳动小程序必须写in(this), 否则都取不到值
-						// #endif
-						let view = query.select('#' + this.viewId);
-						view.boundingClientRect(data => {
+						this.getClientInfo(data=>{
 							this.isExec = false;
 							if (data) {
 								this.mescroll.setClientHeight(data.height);
@@ -234,9 +248,20 @@
 									this.setClientHeight()
 								}, this.clientNum * 100)
 							}
-						}).exec();
+						})
 					})
 				}
+			},
+			// 获取滚动区域的信息
+			getClientInfo(success){
+				let query = uni.createSelectorQuery();
+				// #ifndef MP-ALIPAY || MP-DINGTALK
+				query = query.in(this) // 支付宝小程序不支持in(this),而字节跳动小程序必须写in(this), 否则都取不到值
+				// #endif
+				let view = query.select('#' + this.viewId);
+				view.boundingClientRect(data => {
+					success(data)
+				}).exec();
 			}
 		},
 		// 使用created初始化mescroll对象; 如果用mounted部分css样式编译到H5会失效
@@ -246,10 +271,10 @@
 			let diyOption = {
 				// 下拉刷新的配置
 				down: {
-					inOffset(mescroll) {
+					inOffset() {
 						vm.downLoadType = 1; // 下拉的距离进入offset范围内那一刻的回调 (自定义mescroll组件时,此行不可删)
 					},
-					outOffset(mescroll) {
+					outOffset() {
 						vm.downLoadType = 2; // 下拉的距离大于offset那一刻的回调 (自定义mescroll组件时,此行不可删)
 					},
 					onMoving(mescroll, rate, downHight) {
@@ -261,12 +286,12 @@
 						vm.downLoadType = 3; // 显示下拉刷新进度的回调 (自定义mescroll组件时,此行不可删)
 						vm.downHight = downHight; // 设置下拉区域的高度 (自定义mescroll组件时,此行不可删)
 					},
-					endDownScroll(mescroll) {
+					endDownScroll() {
 						vm.downLoadType = 4; // 结束下拉 (自定义mescroll组件时,此行不可删)
 						vm.downHight = 0; // 设置下拉区域的高度 (自定义mescroll组件时,此行不可删)
 						vm.downResetTimer && clearTimeout(vm.downResetTimer)
 						vm.downResetTimer = setTimeout(()=>{ // 过渡动画执行完毕后,需重置为0的状态,以便置空this.transition,避免iOS小程序列表渲染不完整
-							vm.downLoadType = 0
+							if(vm.downLoadType===4) vm.downLoadType = 0
 						},300)
 					},
 					// 派发下拉刷新的回调
@@ -310,10 +335,7 @@
 			}
 
 			MeScroll.extend(diyOption, GlobalOption); // 混入全局的配置
-			let myOption = JSON.parse(JSON.stringify({
-				'down': vm.down,
-				'up': vm.up
-			})) // 深拷贝,避免对props的影响
+			let myOption = JSON.parse(JSON.stringify({'down': vm.down,'up': vm.up})) // 深拷贝,避免对props的影响
 			MeScroll.extend(myOption, diyOption); // 混入具体界面的配置
 
 			// 初始化MeScroll对象
@@ -334,34 +356,36 @@
 			// 因为使用的是scrollview,这里需自定义scrollTo
 			vm.mescroll.resetScrollTo((y, t) => {
 				vm.scrollAnim = (t !== 0); // t为0,则不使用动画过渡
-				if(typeof y === 'string'){ // 第一个参数如果为字符串,则使用scroll-into-view
-					// #ifdef MP-WEIXIN
-					// 微信小程序暂不支持slot里面的scroll-into-view,只能计算位置实现
-					uni.createSelectorQuery().select('#'+vm.viewId).boundingClientRect(function(rect){
+				if(typeof y === 'string'){
+					// 小程序不支持slot里面的scroll-into-view, 统一使用计算的方式实现
+					vm.getClientInfo(function(rect){
 						let mescrollTop = rect.top // mescroll到顶部的距离
-						uni.createSelectorQuery().select('#'+y).boundingClientRect(function(rect){
-							let curY = vm.mescroll.getScrollTop()
-							let top = rect.top - mescrollTop
-							top += curY
-							if(!vm.isFixed) top -= vm.numTop
-							vm.scrollTop = curY;
-							vm.$nextTick(function() {
-								vm.scrollTop = top
-							})
+						let selector;
+						if(y.indexOf('#')==-1 && y.indexOf('.')==-1){
+							selector = '#'+y // 不带#和. 则默认为id选择器
+						}else{
+							selector = y
+							// #ifdef APP-PLUS || H5 || MP-ALIPAY || MP-DINGTALK
+							if(y.indexOf('>>>')!=-1){ // 不支持跨自定义组件的后代选择器 (转为普通的选择器即可跨组件查询)
+								selector = y.split('>>>')[1].trim()
+							}
+							// #endif
+						}
+						uni.createSelectorQuery().select(selector).boundingClientRect(function(rect){
+							if (rect) {
+								let curY = vm.mescroll.getScrollTop()
+								let top = rect.top - mescrollTop
+								top += curY
+								if(!vm.isFixed) top -= vm.numTop
+								vm.scrollTop = curY;
+								vm.$nextTick(function() {
+									vm.scrollTop = top
+								})
+							} else{
+								console.error(selector + ' does not exist');
+							}
 						}).exec()
-					}).exec()
-					// #endif
-					
-					// #ifndef MP-WEIXIN
-					if (vm.scrollToViewId != y) {
-						vm.scrollToViewId = y;
-					} else{
-						vm.scrollToViewId = ''; // scrollToViewId必须变化才会生效,所以此处先置空再赋值
-						vm.$nextTick(function(){
-							vm.scrollToViewId = y;
-						})
-					}
-					// #endif
+					})
 					return;
 				}
 				let curY = vm.mescroll.getScrollTop()
