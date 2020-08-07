@@ -3,7 +3,7 @@
 		"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
 	},
 	"pages": [{
-		"path": "pages/news/news",
+		"path": "pages/news/home",
 		"style": {
 			"navigationStyle": "custom",
 			"app-plus": {
@@ -44,7 +44,7 @@
 		"backgroundColor": "#FFFFFF",
 		"borderStyle": "white",
 		"list": [{
-			"pagePath": "pages/news/news",
+			"pagePath": "pages/news/home",
 			"iconPath": "static/tabbar/tabbar-home-gray.png",
 			"selectedIconPath": "static/tabbar/tabbar-home-red.png",
 			"text": "资讯"
