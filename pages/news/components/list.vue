@@ -1,6 +1,6 @@
 <template>
 	<view class="news-list">
-		<view class="u-flex u-col-top list-item" v-for="item in list" :key="item.id"  @click="openPage('news/detail')">
+		<view class="u-flex u-col-top list-item" v-for="item in list" :key="item.id"  @click="toDetail(item._id)">
 			<view class="list-item-side">
 				<image
 					class="news-pic"
@@ -33,6 +33,12 @@ export default {
 		}
 	},
 	methods: {
+		// 详情
+		toDetail(id) {
+			this.$u.route('/pages/news/detail', {
+				id: id
+			});
+		},
 		// 打开页面
 		openPage(path) {
 			this.$u.route({

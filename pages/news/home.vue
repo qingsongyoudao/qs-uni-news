@@ -17,10 +17,10 @@
 		<block slot="header-placeholder">
 			<status-bar></status-bar>
 			<nav-bar></nav-bar>
-			<u-gap height="80"></u-gap>
+			<u-gap height="88"></u-gap>
 		</block>
 		<!-- 页面主体 -->
-		<mescroll-body :top="8" ref="mescrollRef" @init="mescrollInit" @down="downCallback" @up="upCallback" :down="downOption" :up="upOption" @emptyclick="emptyClick">
+		<mescroll-body ref="mescrollRef" @init="mescrollInit" @down="downCallback" @up="upCallback" :down="downOption" :up="upOption" @emptyclick="emptyClick">
 			<list :list="dataList"></list>
 		</mescroll-body>
 		
