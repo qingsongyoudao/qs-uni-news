@@ -4,9 +4,7 @@
 		<block slot="header">
 			<status-bar></status-bar>
 			<nav-bar>
-				<view class="u-flex u-m-l-10">
-					<u-icon name="search" size="38" :custom-style="{ padding: '20rpx' }" @click="tip"></u-icon>
-				</view>
+				<view class="u-flex u-m-l-10"><u-icon name="search" size="38" :custom-style="{ padding: '20rpx' }" @click="tip"></u-icon></view>
 				<view class="u-flex u-m-r-10">
 					<u-icon name="chat" size="38" :custom-style="{ padding: '20rpx' }" @click="tip"></u-icon>
 					<u-icon name="scan" size="38" :custom-style="{ padding: '20rpx' }" @click="tip"></u-icon>
@@ -23,7 +21,6 @@
 		<mescroll-body ref="mescrollRef" @init="mescrollInit" @down="downCallback" @up="upCallback" :down="downOption" :up="upOption" @emptyclick="emptyClick">
 			<list :list="dataList"></list>
 		</mescroll-body>
-		
 	</qs-page>
 </template>
 
@@ -50,28 +47,44 @@ export default {
 			tabs: {
 				items: [
 					{
-						name: '关注'
+						name: '关注',
+						category: '',
+						tag: '关注'
 					},
 					{
-						name: '最新'
+						name: '最新',
+						category: '',
+						tag: ''
 					},
 					{
-						name: '热榜'
+						name: '热榜',
+						category: '',
+						tag: '热榜'
 					},
 					{
-						name: '精读'
+						name: '精读',
+						category: '',
+						tag: '精读'
 					},
 					{
-						name: '直播'
+						name: '直播',
+						category: '',
+						tag: '直播'
 					},
 					{
-						name: '手机'
+						name: '手机',
+						category: 'fcca363a5ef715df0005cd13300816c6',
+						tag: ''
 					},
 					{
-						name: '电脑'
+						name: '电脑',
+						category: '5ef369a209e2e5004d313950',
+						tag: ''
 					},
 					{
-						name: '无人机'
+						name: '无人机',
+						category: '5ef369613e8e0b004da1709e',
+						tag: ''
 					}
 				],
 				current: 1
@@ -154,40 +167,8 @@ export default {
 		tabsChange(i) {
 			this.tabs.current = i;
 			// 查询条件
-			switch (this.tabs.current) {
-				case 0:
-					this.search.category = '';
-					this.search.tag = '关注';
-					break;
-				case 1:
-					this.search.category = '';
-					this.search.tag = '';
-					break;
-				case 2:
-					this.search.category = '';
-					this.search.tag = '热榜';
-					break;
-				case 3:
-					this.search.category = '';
-					this.search.tag = '精读';
-					break;
-				case 4:
-					this.search.category = '';
-					this.search.tag = '直播';
-					break;
-				case 5:
-					this.search.category = 'fcca363a5ef715df0005cd13300816c6';
-					this.search.tag = '';
-					break;
-				case 6:
-					this.search.category = '5ef369a209e2e5004d313950';
-					this.search.tag = '';
-					break;
-				case 7:
-					this.search.category = '5ef369613e8e0b004da1709e';
-					this.search.tag = '';
-					break;
-			}
+			this.search.category = this.tabs.items[this.tabs.current].category;
+			this.search.tag = this.tabs.items[this.tabs.current].tag;
 			// 先置空列表，显示加载进度
 			this.dataList = [];
 			// 再刷新列表数据

@@ -22,17 +22,17 @@
 			</view>
 			<view class="u-picker-body">
 				<picker-view v-if="mode == 'region'" :value="valueArr" @change="change" class="u-picker-view" @pickstart="pickstart" @pickend="pickend">
-					<picker-view-column v-if="params.province">
+					<picker-view-column v-if="!reset && params.province">
 						<view class="u-column-item" v-for="(item, index) in provinces" :key="index">
 							<view class="u-line-1">{{ item.label }}</view>
 						</view>
 					</picker-view-column>
-					<picker-view-column v-if="params.city">
+					<picker-view-column v-if="!reset && params.city">
 						<view class="u-column-item" v-for="(item, index) in citys" :key="index">
 							<view class="u-line-1">{{ item.label }}</view>
 						</view>
 					</picker-view-column>
-					<picker-view-column v-if="params.area">
+					<picker-view-column v-if="!reset && params.area">
 						<view class="u-column-item" v-for="(item, index) in areas" :key="index">
 							<view class="u-line-1">{{ item.label }}</view>
 						</view>
@@ -77,14 +77,14 @@
 					</picker-view-column>
 				</picker-view>
 				<picker-view v-else-if="mode == 'selector'" :value="valueArr" @change="change" class="u-picker-view" @pickstart="pickstart" @pickend="pickend">
-					<picker-view-column>
+					<picker-view-column v-if="!reset">
 						<view class="u-column-item" v-for="(item, index) in range" :key="index">
 							<view class="u-line-1">{{ getItemValue(item, 'selector') }}</view>
 						</view>
 					</picker-view-column>
 				</picker-view>
 				<picker-view v-else-if="mode == 'multiSelector'" :value="valueArr" @change="change" class="u-picker-view" @pickstart="pickstart" @pickend="pickend">
-					<picker-view-column v-for="(item, index) in range" :key="index">
+					<picker-view-column v-if="!reset" v-for="(item, index) in range" :key="index">
 						<view class="u-column-item" v-for="(item1, index1) in item" :key="index1">
 							<view class="u-line-1">{{ getItemValue(item1, 'multiSelector') }}</view>
 						</view>
@@ -264,10 +264,10 @@ export default {
 			hour: 0,
 			minute: 0,
 			second: 0,
+			reset: false,
 			startDate: '',
 			endDate: '',
 			valueArr: [],
-			reset: false,
 			provinces: provinces,
 			citys: citys[0],
 			areas: areas[0][0],
@@ -446,6 +446,9 @@ export default {
 			else if (this.params.month) index = 1;
 			else if (this.params.year) index = 1;
 			else index = 0;
+			// 当月份变化时，会导致日期的天数也会变化，如果原来选的天数大于变化后的天数，则重置为变化后的最大值
+			// 比如原来选中3月31日，调整为2月后，日期变为最大29，这时如果day值继续为31显然不合理，于是将其置为29(picker-column从1开始)
+			if(this.day > this.days.length) this.day = this.days.length;
 			this.valueArr.splice(index, 1, this.getIndex(this.days, this.day));
 		},
 		setHours() {
