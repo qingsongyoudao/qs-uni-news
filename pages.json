@@ -21,9 +21,18 @@
 			"navigationStyle": "custom"
 		}
 	}, {
+		"path": "pages/news/list",
+		"style": {
+			"app-plus": {
+				"bounce": "none" // 取消iOS回弹, 避免和下拉刷新冲突 (小程序无法取消)
+			}
+		}
+	}, {
 		"path": "pages/news/detail",
 		"style": {
-			"navigationStyle": "custom"
+			"app-plus": {
+				"bounce": "none" // 取消iOS回弹, 避免和下拉刷新冲突 (小程序无法取消)
+			}
 		}
 	}, {
 		"path": "pages/news/publish",

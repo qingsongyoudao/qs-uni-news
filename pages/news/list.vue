@@ -1,22 +1,5 @@
 <template>
-	<qs-page :header="true">
-		<!-- 页面头部 -->
-		<block slot="header">
-			<status-bar></status-bar>
-			<nav-bar>
-				<view class="u-flex u-m-l-10"><u-icon name="search" size="38" :custom-style="{ padding: '20rpx' }" @click="tip"></u-icon></view>
-				<view class="u-flex u-m-r-10">
-					<u-icon name="chat" size="38" :custom-style="{ padding: '20rpx' }" @click="tip"></u-icon>
-					<u-icon name="scan" size="38" :custom-style="{ padding: '20rpx' }" @click="tip"></u-icon>
-				</view>
-			</nav-bar>
-			<u-tabs ref="tabs" :list="tabs.items" :current="tabs.current" @change="tabsChange" height="80" active-color="#D81E06"></u-tabs>
-		</block>
-		<block slot="header-placeholder">
-			<status-bar></status-bar>
-			<nav-bar></nav-bar>
-			<u-gap height="88"></u-gap>
-		</block>
+	<qs-page>
 		<!-- 页面主体 -->
 		<mescroll-body ref="mescrollRef" @init="mescrollInit" @down="downCallback" @up="upCallback" :down="downOption" :up="upOption" @emptyclick="emptyClick">
 			<list :list="dataList"></list>
@@ -42,52 +25,6 @@ export default {
 	},
 	data() {
 		return {
-			// 标签栏
-			tabs: {
-				items: [
-					{
-						name: '关注',
-						category: '',
-						tag: '关注'
-					},
-					{
-						name: '最新',
-						category: '',
-						tag: ''
-					},
-					{
-						name: '热榜',
-						category: '',
-						tag: '热榜'
-					},
-					{
-						name: '精读',
-						category: '',
-						tag: '精读'
-					},
-					{
-						name: '直播',
-						category: '',
-						tag: '直播'
-					},
-					{
-						name: '手机',
-						category: 'fcca363a5ef715df0005cd13300816c6',
-						tag: ''
-					},
-					{
-						name: '电脑',
-						category: '5ef369a209e2e5004d313950',
-						tag: ''
-					},
-					{
-						name: '无人机',
-						category: '5ef369613e8e0b004da1709e',
-						tag: ''
-					}
-				],
-				current: 1
-			},
 			// 下拉刷新的配置
 			downOption: {
 				auto: false // 是否在初始化完毕之后，自动执行一次下拉刷新的回调 downCallback，默认 true
@@ -161,32 +98,6 @@ export default {
 					// 请求失败，隐藏加载状态
 					this.mescroll.endErr();
 				});
-		},
-		// 标签栏
-		tabsChange(i) {
-			this.tabs.current = i;
-			// 查询条件
-			this.search.category = this.tabs.items[this.tabs.current].category;
-			this.search.tag = this.tabs.items[this.tabs.current].tag;
-			// 先置空列表，显示加载进度
-			this.dataList = [];
-			// 再刷新列表数据
-			this.mescroll.resetUpScroll();
-			// 滚动到顶部
-			this.mescroll.scrollTo(0);
-		},
-		// 打开页面
-		openPage(path) {
-			if (path == '') {
-				return this.$u.toast('暂未开通');
-			}
-			this.$u.route({
-				url: '/pages/' + path
-			});
-		},
-		// 提示
-		tip() {
-			return this.$u.toast('暂未开通');
 		}
 	}
 };
